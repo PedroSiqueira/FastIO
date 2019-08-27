@@ -1,14 +1,17 @@
+/**
+ * SB.append(String).append(String+Integer)
+ */
 package iotest.out3;
 
 public class W2 {
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < 1000000; i++) {
-            for (int j = 0; j < 10; j++) {//imprime 10 strings/numeros de 5 caracteres/digitos
+            for (int j = 0; j < 10; j++) {
                 String s = randomString(5);
                 print(s);//imprime uma string de 5 caracteres
                 int n = (_random.nextInt(10000) + 10000);
-                print("" + n);//imprime um numero de 5 digitos
+                print("" + n);
             }
             print(System.getProperty("line.separator"));
         }

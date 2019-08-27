@@ -1,3 +1,6 @@
+/**
+ * BufferedWriter
+ */
 package iotest.out2;
 
 public class W1 {

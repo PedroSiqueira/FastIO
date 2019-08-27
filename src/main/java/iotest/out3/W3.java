@@ -1,14 +1,17 @@
+/**
+ * SB.append(String).append(int) (sem encapsular)
+ */
 package iotest.out3;
 
 public class W3 {
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < 1000000; i++) {
-            for (int j = 0; j < 10; j++) {//imprime 10 strings/numeros de 5 caracteres/digitos
+            for (int j = 0; j < 10; j++) {
                 String s = randomString(5);
                 sb.append(s);//imprime uma string de 5 caracteres
                 int n = (_random.nextInt(10000) + 10000);
-                sb.append(n);//imprime um numero de 5 digitos
+                sb.append(n);
             }
             sb.append(System.getProperty("line.separator"));
             flushsb();

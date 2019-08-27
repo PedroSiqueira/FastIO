@@ -1,3 +1,6 @@
+/**
+ * BufferedWriter(2000000)
+ */
 package iotest.out2;
 
 public class W3 {

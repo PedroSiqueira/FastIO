@@ -1,15 +1,15 @@
 /**
- * System.out.print(sb.toString());
+ * BufferedOutputStream.write(sb.toString().getBytes())
  */
-package iotest.out4;
+package iotest.out5;
 
-public class W1 {
+public class W8 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
     static int numColumns = 100;
 
-    private static void PrintLines() {
+    private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < numLines; i++) {
             for (int j = 0; j < numColumns / 10; j++) {
                 String s = randomString(5);
@@ -18,13 +18,13 @@ public class W1 {
             }
             sb.append(System.getProperty("line.separator"));
         }
-        System.out.print(sb.toString());
+        flush_close();
     }
 
-    public static void main(String args[]) {
-        if (args.length > 0) {
-            numLines = Integer.parseInt(args[0]);
-            numColumns = Integer.parseInt(args[1]);
+    public static void main(String args[]) throws java.io.IOException {
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
         long startTime = System.nanoTime();
         PrintLines();
@@ -40,5 +40,12 @@ public class W1 {
         return strbld.toString();
     }
 
-    static StringBuilder sb = new StringBuilder(4000000);
+    static void flush_close() throws java.io.IOException {
+        try (java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out)) {
+            out.write(sb.toString().getBytes());
+            out.flush();
+        }
+    }
+
+    static StringBuilder sb = new StringBuilder(2097152);
 }

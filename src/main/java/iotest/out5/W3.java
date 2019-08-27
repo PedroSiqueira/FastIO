@@ -1,9 +1,9 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes());
+ * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(65536)
  */
-package iotest.out1;
+package iotest.out5;
 
-public class W7 {
+public class W3 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -23,9 +23,9 @@ public class W7 {
     }
 
     public static void main(String args[]) throws java.io.IOException {
-        if (args.length > 0) {
-            numLines = Integer.parseInt(args[0]);
-            numColumns = Integer.parseInt(args[1]);
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
         long startTime = System.nanoTime();
         PrintLines();
@@ -48,12 +48,12 @@ public class W7 {
     }
 
     private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 20000) {
+        if (sb.length() >= 4 * 65536 / 5) {
             stdout.write(sb.toString().getBytes());
-            sb = new StringBuilder(25000);
+            sb = new StringBuilder(65536);
         }
     }
 
-    static StringBuilder sb = new StringBuilder(25000);
+    static StringBuilder sb = new StringBuilder(65536);
     static java.io.BufferedOutputStream stdout = new java.io.BufferedOutputStream(System.out);
 }

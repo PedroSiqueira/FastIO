@@ -1,5 +1,5 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes());
+ * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(25000)
  */
 package iotest.out5;
 
@@ -11,10 +11,10 @@ public class W1 {
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < numLines; i++) {
-            for (int j = 0; j < numColumns / 10; j++) {//imprime 10 strings/numeros de 5 caracteres/digitos
-                String s = randomString(5);
-                int n = (_random.nextInt(10000) + 10000);
-                sb.append(s).append(n);//imprime um numero de 5 digitos
+            for (int j = 0; j < numColumns / 10; j++) {
+                String s = randomString(5);//string com 5 chars
+                int n = (_random.nextInt(10000) + 10000);//int com 5 digitos
+                sb.append(s).append(n);
             }
             sb.append(System.getProperty("line.separator"));
             FlushSb();
@@ -23,13 +23,9 @@ public class W1 {
     }
 
     public static void main(String args[]) throws java.io.IOException {
-        if (args.length > 0) {
-            sbsize = Integer.parseInt(args[0]);
-            sb = new StringBuilder(sbsize);
-        }
-        if (args.length > 1) {
-            numLines = Integer.parseInt(args[1]);
-            numColumns = Integer.parseInt(args[2]);
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
         long startTime = System.nanoTime();
         PrintLines();
@@ -46,19 +42,18 @@ public class W1 {
     }
 
     static void flush_close() throws java.io.IOException {
-        out.write(sb.toString().getBytes());
-        out.flush();
-        out.close();
+        stdout.write(sb.toString().getBytes());
+        stdout.flush();
+        stdout.close();
     }
 
     private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 3 * sbsize / 4) {
-            out.write(sb.toString().getBytes());
-            sb = new StringBuilder(sbsize);
+        if (sb.length() >= 4 * 25000 / 5) {
+            stdout.write(sb.toString().getBytes());
+            sb = new StringBuilder(25000);
         }
     }
 
-    static int sbsize = 32768;
-    static StringBuilder sb;
-    static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
+    static StringBuilder sb = new StringBuilder(25000);
+    static java.io.BufferedOutputStream stdout = new java.io.BufferedOutputStream(System.out);
 }

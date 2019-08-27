@@ -1,9 +1,9 @@
 /**
- * System.out.print(sb.toString());
+ * System.out.print(sb.toString())
  */
-package iotest.out4;
+package iotest.out5;
 
-public class W1 {
+public class W9 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -21,10 +21,10 @@ public class W1 {
         System.out.print(sb.toString());
     }
 
-    public static void main(String args[]) {
-        if (args.length > 0) {
-            numLines = Integer.parseInt(args[0]);
-            numColumns = Integer.parseInt(args[1]);
+    public static void main(String args[]) throws java.io.IOException {
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
         long startTime = System.nanoTime();
         PrintLines();
@@ -40,5 +40,5 @@ public class W1 {
         return strbld.toString();
     }
 
-    static StringBuilder sb = new StringBuilder(4000000);
+    static StringBuilder sb = new StringBuilder(2097152);
 }

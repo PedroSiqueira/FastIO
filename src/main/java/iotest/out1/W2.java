@@ -11,7 +11,7 @@ public class W2 {
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < numLines; i++) {
-            for (int j = 0; j < numColumns / 10; j++) {//imprime 10 strings/numeros de 5 caracteres/digitos
+            for (int j = 0; j < numColumns / 10; j++) {
                 String s = randomString(5);
                 int n = (_random.nextInt(10000) + 10000);
                 stdout.write(s + n);
