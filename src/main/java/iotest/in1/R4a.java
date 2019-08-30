@@ -25,20 +25,20 @@ public class R4a {
 
     //se ainda ha um caractere diferente de whitespace na entrada, returna true, senao, retorna false
     static boolean ready() throws java.io.IOException {
-        if (inputnumchars == -2) inputnumchars = input.read(inputchars);
-        while (zc < inputnumchars && inputchars[zc] <= ' ') zc++;
-        return zc < inputnumchars;
+        if (zv == -2) zv = input.read(zx);
+        while (zc < zv && zx[zc] <= ' ') zc++;
+        return zc < zv;
     }
 
     //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se o caractere atual for c ou a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        for (inputauxvar = zc; zc < inputnumchars && c.indexOf(inputchars[zc]) == -1; zc++);
-        return inputauxvar >= zc ? null : new String(inputchars, inputauxvar, zc - inputauxvar);
+        for (zb = zc; zc < zv && c.indexOf(zx[zc]) == -1; zc++);
+        return zb >= zc ? null : new String(zx, zb, zc - zb);
     }
 
-    static char[] inputchars = new char[2097152];//maximo de 2M chars
-    static int zc = 0, inputnumchars = -2, inputauxvar = 0;
+    static char[] zx = new char[2097152];//maximo de 2M chars
+    static int zc = 0, zv = -2, zb = 0;
     static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2097152);
 }

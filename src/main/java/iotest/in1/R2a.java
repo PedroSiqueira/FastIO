@@ -25,22 +25,22 @@ public class R2a {
 
     //se ainda ha um caractere diferente de whitespace na entrada, returna true, senao, retorna false
     static boolean ready() throws java.io.IOException {
-        if (inputchars.length() <= 0)
-            while ((inputauxvar = input.read(inputchars2)) != -1) inputchars.append(inputchars2, 0, inputauxvar);
-        while (zc < inputchars.length() && inputchars.charAt(zc) <= ' ') zc++;
-        return zc < inputchars.length();
+        if (zx.length() <= 0)
+            while ((zb = input.read(zn)) != -1) zx.append(zn, 0, zb);
+        while (zc < zx.length() && zx.charAt(zc) <= ' ') zc++;
+        return zc < zx.length();
     }
 
     //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se o caractere atual for c ou a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        for (inputauxvar = zc; zc < inputchars.length() && c.indexOf(inputchars.charAt(zc)) == -1; zc++);
-        return inputauxvar >= zc ? null : inputchars.substring(inputauxvar, zc);
+        for (zb = zc; zc < zx.length() && c.indexOf(zx.charAt(zc)) == -1; zc++);
+        return zb >= zc ? null : zx.substring(zb, zc);
     }
 
-    static StringBuilder inputchars = new StringBuilder(2097152);//capacidade inicial de 2M chars
-    static char[] inputchars2 = new char[2097152];
-    static int zc = 0, inputauxvar = 0;
+    static StringBuilder zx = new StringBuilder(2097152);//capacidade inicial de 2M chars
+    static char[] zn = new char[2097152];
+    static int zc = 0, zb = 0;
     static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2097152);
 }

@@ -25,27 +25,27 @@ public class R2b {
 
     //se ainda ha um caractere diferente de whitespace na entrada, returna true, senao, retorna false
     static boolean ready() throws java.io.IOException {
-        if (inputnumchars <= 0) {
-            while ((inputauxvar = input.read(inputchartemp)) != -1) {
-                if (inputauxvar + inputnumchars > inputchars.length)
-                    inputchars = java.util.Arrays.copyOf(inputchars, inputchars.length * 2);//dobra o tamanho de inputchars
-                System.arraycopy(inputchartemp, 0, inputchars, inputnumchars, inputauxvar);//anexa temp em inputchars
-                inputnumchars += inputauxvar;
+        if (zv <= 0) {
+            while ((zb = input.read(inputchartemp)) != -1) {
+                if (zb + zv > zx.length)
+                    zx = java.util.Arrays.copyOf(zx, zx.length * 2);//dobra o tamanho de zx
+                System.arraycopy(inputchartemp, 0, zx, zv, zb);//anexa temp em zx
+                zv += zb;
             }
         }
-        while (zc < inputnumchars && inputchars[zc] <= ' ') zc++;
-        return zc < inputnumchars;
+        while (zc < zv && zx[zc] <= ' ') zc++;
+        return zc < zv;
     }
 
     //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se o caractere atual for c ou a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        for (inputauxvar = zc; zc < inputnumchars && c.indexOf(inputchars[zc]) == -1; zc++);
-        return inputauxvar >= zc ? null : new String(inputchars, inputauxvar, zc - inputauxvar);
+        for (zb = zc; zc < zv && c.indexOf(zx[zc]) == -1; zc++);
+        return zb >= zc ? null : new String(zx, zb, zc - zb);
     }
 
-    static byte[] inputchars = new byte[2097152], inputchartemp = new byte[2097152];
-    static int zc = 0, inputnumchars = 0, inputauxvar = 0;
+    static byte[] zx = new byte[2097152], inputchartemp = new byte[2097152];
+    static int zc = 0, zv = 0, zb = 0;
     static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }

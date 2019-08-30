@@ -35,7 +35,7 @@ public class R3a {
     static String readUntil(String c) throws java.io.IOException {
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
         while (ready() && c.indexOf(zx[zc]) != -1) zc++;//descarta c's a esquerda
-        for (zn.setLength(0); ready() && c.indexOf(zx[zc++]) == -1; zn.appendCodePoint(zx[zc - 1]));
+        for (zn.setLength(0); ready() && c.indexOf(zx[zc]) == -1; zn.appendCodePoint(zx[zc++]));
         return zn.length() > 0 ? zn.toString() : null;
     }
 

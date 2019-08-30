@@ -23,22 +23,26 @@ public class R5b {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    static String readUntil(String c) throws java.io.IOException {
-        if (zc >= inputchars.length()) {
-            inputchars = input.readLine();
+    public static boolean ready() throws java.io.IOException {
+        if (zx != null && zc >= zx.length()) {
+            zx = input.readLine();
             zc = 0;
         }
-        if (inputchars == null) return null;
-        else if ("\n\r".contains(c)) {
-            inputauxvar = zc;
-            zc = inputchars.length();
-            return inputchars.substring(inputauxvar, zc);
-        } else if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        for (inputauxvar = zc; zc < inputchars.length() && c.indexOf(inputchars.charAt(zc)) == -1; zc++);
-        return inputauxvar >= zc ? null : inputchars.substring(inputauxvar, zc);
+        return zx != null;
+    }
+
+    //le da entrada uma string ate (mas nao incluido) c, depois de descartar quaisquer c's a esquerda. se a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace.
+    static String readUntil(String c) throws java.io.IOException {
+        if (c == null || "".equals(c)) c = "\t\n\f\r ";
+        while (ready() && c.indexOf(zx.charAt(zc)) != -1) zc++;//descarta c's a esquerda
+        if ("\n\r".contains(c) && zx != null) {
+            zv = zc;
+            zc = zx.length();
+        } else for (zv = zc; zc < zx.length() && c.indexOf(zx.charAt(zc++)) == -1;);
+        return zx != null ? zx.substring(zv) : null;
     }
 
     static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2097152);
-    static int inputauxvar, zc = 0;
-    static String inputchars = "";
+    static int zb, zc = 0, zv;
+    static String zx = "";
 }
