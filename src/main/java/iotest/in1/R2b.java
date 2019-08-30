@@ -23,29 +23,28 @@ public class R2b {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    //se ainda ha um caractere diferente de whitespace na entrada, returna true, senao, retorna false
     static boolean ready() throws java.io.IOException {
-        if (zv <= 0) {
-            while ((zb = input.read(inputchartemp)) != -1) {
-                if (zb + zv > zx.length)
-                    zx = java.util.Arrays.copyOf(zx, zx.length * 2);//dobra o tamanho de zx
-                System.arraycopy(inputchartemp, 0, zx, zv, zb);//anexa temp em zx
-                zv += zb;
+        if (ql <= 0) {
+            while ((qa = input.read(qn)) != -1) {
+                if (qa + ql > qb.length)
+                    qb = java.util.Arrays.copyOf(qb, qb.length * 2);//dobra o tamanho de qb
+                System.arraycopy(qn, 0, qb, ql, qa);//anexa temp em qb
+                ql += qa;
             }
         }
-        while (zc < zv && zx[zc] <= ' ') zc++;
-        return zc < zv;
+        return qc < ql;
     }
 
-    //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se o caractere atual for c ou a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
+    //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se nao conseguiu ler, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        for (zb = zc; zc < zv && c.indexOf(zx[zc]) == -1; zc++);
-        return zb >= zc ? null : new String(zx, zb, zc - zb);
+        while (qc < ql && qb[qc] <= ' ') qc++;
+        for (qa = qc; qc < ql && c.indexOf(qb[qc]) == -1; qc++);
+        return qa < qc ? new String(qb, qa, qc - qa) : "";
     }
 
-    static byte[] zx = new byte[2097152], inputchartemp = new byte[2097152];
-    static int zc = 0, zv = 0, zb = 0;
+    static byte[] qb = new byte[2097152], qn = new byte[2097152];//buffer, buffer2
+    static int qc = 0, ql = 0, qa = 0;//currentChar, length, aux
     static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }

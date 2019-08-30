@@ -24,23 +24,24 @@ public class R3a {
     }
 
     public static boolean ready() throws java.io.IOException {
-        if (zc >= zv) {
-            zv = input.read(zx);
-            zc = 0;
+        if (qc >= ql) {
+            ql = input.read(qb);
+            qc = 0;
         }
-        return zv > 0;
+        return ql > 0;
     }
 
-    //le da entrada uma string ate (mas nao incluido) c, depois de descartar quaisquer c's a esquerda. se a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace.
+    //le da entrada uma string ate (mas nao incluido) c, depois de descartar qualquer whitespace a esquerda. se nao conseguiu ler, retorna null. se c for nulo ou vazio, le ate qualquer whitespace.
     static String readUntil(String c) throws java.io.IOException {
+        if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        while (ready() && c.indexOf(zx[zc]) != -1) zc++;//descarta c's a esquerda
-        for (zn.setLength(0); ready() && c.indexOf(zx[zc]) == -1; zn.appendCodePoint(zx[zc++]));
-        return zn.length() > 0 ? zn.toString() : null;
+        while (ready() && qb[qc] <= ' ') qc++;//descarta c's a esquerda
+        for (qn.setLength(0); ready() && c.indexOf(qb[qc]) == -1; qn.appendCodePoint(qb[qc++]));
+        return qn.toString();
     }
 
-    static byte[] zx = new byte[2097152];//buffer
-    static int zc = 0, zv = -2;//currentChar e totalChars
-    static StringBuilder zn = new StringBuilder(128);//linhas na media com 128 caracteres
+    static byte[] qb = new byte[2097152];//buffer
+    static int qc = 0, ql = -2;//currentChar e length
+    static StringBuilder qn = new StringBuilder(128);//linhas na media com 128 caracteres
     static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }

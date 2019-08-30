@@ -1,5 +1,5 @@
 /**
- * BufferedReader only
+ * BufferedInputStream, reads with read(byte[]), stores in byte[]. only reads 2M chars
  */
 package iotest.in1;
 
@@ -9,8 +9,8 @@ public class R5b {
 
     private static void ReadLines() throws java.io.IOException {
         String s;
-        while (input.ready()) {
-            s = input.readLine();
+        while (ready()) {
+            s = readUntil("\n");
             for (int i = 0; i < s.length(); i++)
                 total += s.charAt(i);
         }
@@ -23,26 +23,21 @@ public class R5b {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    public static boolean ready() throws java.io.IOException {
-        if (zx != null && zc >= zx.length()) {
-            zx = input.readLine();
-            zc = 0;
-        }
-        return zx != null;
+    static boolean ready() throws java.io.IOException {
+        if (ql == -2) ql = input.read(qb);
+        return qc < ql;
     }
 
-    //le da entrada uma string ate (mas nao incluido) c, depois de descartar quaisquer c's a esquerda. se a entrada acabou, retorna null. se c for nulo ou vazio, le ate qualquer whitespace.
+    //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se nao conseguiu ler, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
+        if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        while (ready() && c.indexOf(zx.charAt(zc)) != -1) zc++;//descarta c's a esquerda
-        if ("\n\r".contains(c) && zx != null) {
-            zv = zc;
-            zc = zx.length();
-        } else for (zv = zc; zc < zx.length() && c.indexOf(zx.charAt(zc++)) == -1;);
-        return zx != null ? zx.substring(zv) : null;
+        while (qc < ql && qb[qc] <= ' ') qc++;
+        for (qa = qc; qc < ql && c.indexOf(qb[qc]) == -1; qc++);
+        return qa < ql ? new String(qb, qa, qc - qa) : "";
     }
 
-    static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2097152);
-    static int zb, zc = 0, zv;
-    static String zx = "";
+    static byte[] qb = new byte[2097152];//buffer
+    static int qc = 0, ql = -2, qa = 0;//currentChar, length, aux
+    static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }
