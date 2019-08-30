@@ -4,15 +4,16 @@ outputfile=0
 args=""
 name=""
 onlyecho=0
+repeticao=100
 
 #se total de argumentos passados for zero
 if [ $# = 0 ]; then
-  echo 'usage: ./run.sh -i [input name] -o [there is output] -a [args between quotes] -f [folder location] -e [only echo]'
+  echo 'usage: ./run.sh -i [input name] -o [there is output] -a [args between quotes] -f [folder location] -e [only echo] -r [number of repetitions]'
   exit
 fi
 
 #procura se possui os argumentos -i, -o, -a e -f (os que tem dois-pontos necessitam de um valor como parametro)
-while getopts i:oa:f:e option
+while getopts i:oa:f:er: option
 do
 case "${option}"
   in
@@ -21,6 +22,7 @@ case "${option}"
   a) args=${OPTARG};;
   f) folder=${OPTARG};;
   e) onlyecho=1;;
+  r) repeticao=${OPTARG};;
 esac
 done
 
@@ -30,8 +32,8 @@ echo 'output file:'$outputfile
 echo 'args: '$args
 echo 'only echo: '$onlyecho
 echo
-
-for file in $folder/*.class; do
+date
+for file in $folder*.class; do
   #pega a substring a partir da ultima barra
   name="${file/*\//}"
   #descarta a extensao .class (ultimos 6 chars)
@@ -48,7 +50,7 @@ for file in $folder/*.class; do
   echo $command
 
   if [ "$onlyecho" = 0 ]; then
-    for run in {1..20}; do
+    for ((x=0; x<$repeticao; x++)); do
       #executa comando dentro da string
       eval $command
     done
@@ -56,12 +58,13 @@ for file in $folder/*.class; do
   echo
 done
 
+date
+
 #limpa a tela e emite um beep
-for run in {1..20}; do
-  echo
-  echo -ne '\007'
+for run in {1..40}; do
+  echo '################################################################################################################################'
 done
+echo -ne '\007'
 
 #toca uma musica
-vlc /home/pedro/MEGA/Musics/Palankin/Palankin_-_Pulsante.mp3
-
+#vlc /home/pedro/MEGA/Musics/Palankin/Palankin_-_Pulsante.mp3

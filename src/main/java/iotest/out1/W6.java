@@ -42,18 +42,18 @@ public class W6 {
     }
 
     static void flush_close() throws java.io.IOException {
-        stdout.write(sb.toString());
-        stdout.flush();
-        stdout.close();
+        out.write(sb.toString());
+        out.flush();
+        out.close();
     }
 
     private static void FlushSb() throws java.io.IOException {
         if (sb.length() >= 20000) {
-            stdout.write(sb.toString());
+            out.write(sb.toString());
             sb = new StringBuilder(25000);
         }
     }
 
     static StringBuilder sb = new StringBuilder(25000);
-    static java.io.BufferedWriter stdout = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
+    static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
 }

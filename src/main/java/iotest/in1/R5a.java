@@ -1,9 +1,9 @@
 /**
  * BufferedReader only
  */
-package iotest.in3;
+package iotest.in1;
 
-public class R1 {
+public class R5a {
 
     static long total = 0;
 
@@ -14,7 +14,6 @@ public class R1 {
             for (int i = 0; i < s.length(); i++)
                 total += s.charAt(i);
         }
-        input.close();
     }
 
     public static void main(String args[]) throws java.io.IOException {
@@ -24,5 +23,5 @@ public class R1 {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2000000);
+    static java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(System.in), 2097152);
 }

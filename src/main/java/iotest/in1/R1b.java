@@ -1,9 +1,9 @@
 /**
- * Scanner
+ * Scanner(BufferedInputStream(System.in))
  */
 package iotest.in1;
 
-public class R1 {
+public class R1b {
 
     static long total = 0;
 
@@ -23,5 +23,5 @@ public class R1 {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    static java.util.Scanner input = new java.util.Scanner(System.in);
+    static java.util.Scanner input = new java.util.Scanner(new java.io.BufferedInputStream(System.in));
 }

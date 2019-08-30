@@ -1,5 +1,5 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes())
+ * BufferedOutputStream.write(sb(131072).toString().getBytes())
  */
 package iotest.out4;
 
@@ -11,25 +11,28 @@ public class W3 {
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < numLines; i++) {
-            for (int j = 0; j < numColumns / 10; j++) {
+            int j = 0;//quantas colunas ja foram geradas para a linha atual
+            while (j + 10 < numColumns) {//gera 10 colunas (uma string e um int de 5 digitos cada)
                 String s = randomString(5);
                 int n = (_random.nextInt(10000) + 10000);
                 sb.append(s).append(n);
+                j += 10;
             }
-            sb.append(System.getProperty("line.separator"));
+            sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
         }
         flush_close();
     }
 
     public static void main(String args[]) throws java.io.IOException {
-        if (args.length > 0) {
-            numLines = Integer.parseInt(args[0]);
-            numColumns = Integer.parseInt(args[1]);
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
+        int sbinitial = sb.capacity();
         long startTime = System.nanoTime();
         PrintLines();
         long stopTime = System.nanoTime();
-        System.err.println((stopTime - startTime));
+        System.err.println((stopTime - startTime) + "\tsbCapacity_" + sbinitial + "_" + sb.capacity());
     }
 
     private static String randomString(int length) {
@@ -47,5 +50,5 @@ public class W3 {
         }
     }
 
-    static StringBuilder sb = new StringBuilder(4000000);
+    static StringBuilder sb = new StringBuilder(131072);
 }

@@ -1,15 +1,15 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(25000)
+ * System.out.print(sb(2097152).toString())
  */
 package iotest.out5;
 
-public class W1 {
+public class W02 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
     static int numColumns = 100;
 
-    private static void PrintLines() throws java.io.IOException {
+    private static void PrintLines() {
         for (int i = 0; i < numLines; i++) {
             int j = 0;//quantas colunas ja foram geradas para a linha atual
             while (j + 10 < numColumns) {//gera 10 colunas (uma string e um int de 5 digitos cada)
@@ -19,12 +19,11 @@ public class W1 {
                 j += 10;
             }
             sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
-            FlushSb();
         }
-        flush_close();
+        System.out.print(sb.toString());
     }
 
-    public static void main(String args[]) throws java.io.IOException {
+    public static void main(String args[]) {
         for (int i = 0; i < args.length; i++) {
             if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
             else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
@@ -43,19 +42,5 @@ public class W1 {
         return strbld.toString();
     }
 
-    static void flush_close() throws java.io.IOException {
-        out.write(sb.toString().getBytes());
-        out.flush();
-        out.close();
-    }
-
-    private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 4 * 25000 / 5) {
-            out.write(sb.toString().getBytes());
-            sb = new StringBuilder(25000);
-        }
-    }
-
-    static StringBuilder sb = new StringBuilder(25000);
-    static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
+    static StringBuilder sb = new StringBuilder(2097152);
 }

@@ -42,18 +42,18 @@ public class W7 {
     }
 
     static void flush_close() throws java.io.IOException {
-        stdout.write(sb.toString().getBytes());
-        stdout.flush();
-        stdout.close();
+        out.write(sb.toString().getBytes());
+        out.flush();
+        out.close();
     }
 
     private static void FlushSb() throws java.io.IOException {
         if (sb.length() >= 20000) {
-            stdout.write(sb.toString().getBytes());
+            out.write(sb.toString().getBytes());
             sb = new StringBuilder(25000);
         }
     }
 
     static StringBuilder sb = new StringBuilder(25000);
-    static java.io.BufferedOutputStream stdout = new java.io.BufferedOutputStream(System.out);
+    static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
 }

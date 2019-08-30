@@ -6,16 +6,16 @@ package iotest.out2;
 public class W1 {
 
     private static void PrintLines() throws java.io.IOException {
-        try (java.io.BufferedWriter stdout = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out))) {
+        try (java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out))) {
             for (int i = 0; i < numLines; i++) {
                 for (int j = 0; j < numChars - 2; j++) {
                     int ch = _random.nextInt(95) + 32;
-                    stdout.write((char) ch);
+                    out.write((char) ch);
                     total += ch;
                 }
-                stdout.newLine();
+                out.newLine();
             }
-            stdout.flush();
+            out.flush();
         }
     }
 

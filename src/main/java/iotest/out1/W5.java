@@ -42,18 +42,18 @@ public class W5 {
     }
 
     static void flush_close() {
-        stdout.write(sb.toString());
-        stdout.flush();
-        stdout.close();
+        out.write(sb.toString());
+        out.flush();
+        out.close();
     }
 
     private static void FlushSb() {
         if (sb.length() >= 20000) {
-            stdout.write(sb.toString());
+            out.write(sb.toString());
             sb = new StringBuilder(25000);
         }
     }
 
     static StringBuilder sb = new StringBuilder(25000);
-    static java.io.PrintWriter stdout = new java.io.PrintWriter(new java.io.BufferedOutputStream(System.out));
+    static java.io.PrintWriter out = new java.io.PrintWriter(new java.io.BufferedOutputStream(System.out));
 }

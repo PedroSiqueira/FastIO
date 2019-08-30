@@ -14,9 +14,9 @@ public class W2 {
             for (int j = 0; j < numColumns / 10; j++) {
                 String s = randomString(5);
                 int n = (_random.nextInt(10000) + 10000);
-                stdout.write(s + n);
+                out.write(s + n);
             }
-            stdout.newLine();
+            out.newLine();
         }
         flush_close();
     }
@@ -41,9 +41,9 @@ public class W2 {
     }
 
     static void flush_close() throws java.io.IOException {
-        stdout.flush();
-        stdout.close();
+        out.flush();
+        out.close();
     }
 
-    static java.io.BufferedWriter stdout = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
+    static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
 }

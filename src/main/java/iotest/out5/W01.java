@@ -1,9 +1,9 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(25000)
+ * BufferedWriter(sb(2097152).length()).write(sb.toString())
  */
 package iotest.out5;
 
-public class W1 {
+public class W01 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -19,7 +19,6 @@ public class W1 {
                 j += 10;
             }
             sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
-            FlushSb();
         }
         flush_close();
     }
@@ -44,18 +43,11 @@ public class W1 {
     }
 
     static void flush_close() throws java.io.IOException {
-        out.write(sb.toString().getBytes());
-        out.flush();
-        out.close();
-    }
-
-    private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 4 * 25000 / 5) {
-            out.write(sb.toString().getBytes());
-            sb = new StringBuilder(25000);
+        try (java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out), sb.length() + 1)) {
+            out.write(sb.toString());
+            out.flush();
         }
     }
 
-    static StringBuilder sb = new StringBuilder(25000);
-    static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
+    static StringBuilder sb = new StringBuilder(2097152);
 }
