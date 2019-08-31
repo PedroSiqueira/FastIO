@@ -1,9 +1,9 @@
 /**
- * BufferedInputStream. apenas le linhas de ate 8192 chars
+ * BufferedInputStream, le tudo de uma vez (de 2M em 2M bytes) e grava em byte[].
  */
 package iotest.in1;
 
-public class R3b {
+public class R2c {
 
     static long total = 0;
 
@@ -23,24 +23,21 @@ public class R3b {
         System.err.println((stopTime - startTime) + "\t" + total);
     }
 
-    public static boolean ready() throws java.io.IOException {
-        if (ql != -1 && qc >= ql) {
-            ql = input.read(qb);
-            qc = 0;
-        }
-        return ql > 0;
+    static boolean ready() throws java.io.IOException {
+        if (qb == null) qb = input.readAllBytes();
+        return qc < qb.length;
     }
 
-    //le da entrada uma string ate (mas nao incluido) c, depois de descartar qualquer whitespace a esquerda. se nao conseguiu ler, retorna null. se c for nulo ou vazio, le ate qualquer whitespace.
+    //le da entrada uma string ate (mas nao incluido) c, descartando qualquer whitespace a esquerda. nao descarta c. se nao conseguiu ler, retorna null. se c for nulo ou vazio, le ate qualquer whitespace
     static String readUntil(String c) throws java.io.IOException {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
-        while (ready() && qb[qc] <= ' ') qc++;//descarta c's a esquerda
-        for (qa = 0; ready() && c.indexOf(qb[qc]) == -1; qn[qa++] = qb[qc++]);
-        return new String(qn, 0, qa);
+        while (qc < qb.length && qb[qc] <= ' ') qc++;
+        for (qa = qc; qc < qb.length && c.indexOf(qb[qc]) == -1; qc++);
+        return qa < qc ? new String(qb, qa, qc - qa) : "";
     }
 
-    static byte[] qb = new byte[2097152], qn = new byte[8192];//buffer, linha de ate 8192 chars
-    static int qc = 0, ql = -2, qa;//currentChar, length, aux
+    static byte[] qb = null;//buffer
+    static int qc = 0, qa = 0;//currentChar, length, aux
     static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }

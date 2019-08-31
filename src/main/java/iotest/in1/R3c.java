@@ -1,9 +1,9 @@
 /**
- * BufferedInputStream + StringBuilder.
+ * BufferedInputStream + String.
  */
 package iotest.in1;
 
-public class R3a {
+public class R3c {
 
     static long total = 0;
 
@@ -25,8 +25,9 @@ public class R3a {
 
     public static boolean ready() throws java.io.IOException {
         if (ql != -1 && qc >= ql) {
+            qn.append(new String(qb, qa, qc - qa));//caso estivesse lendo e o buffer acabado, nao descarta o que ja foi lido
             ql = input.read(qb);
-            qc = 0;
+            qc = qa = 0;
         }
         return ql > 0;
     }
@@ -36,12 +37,12 @@ public class R3a {
         if (!ready()) return null;
         if (c == null || "".equals(c)) c = "\t\n\f\r ";
         while (ready() && qb[qc] <= ' ') qc++;//descarta c's a esquerda
-        for (qn.setLength(0); ready() && c.indexOf(qb[qc]) == -1; qn.appendCodePoint(qb[qc++]));
-        return qn.toString();
+        for (qa = qc, qn.setLength(0); ready() && c.indexOf(qb[qc]) == -1; qc++);
+        return qn.append(new String(qb, qa, qc - qa)).toString();
     }
 
     static byte[] qb = new byte[2097152];//buffer
-    static int qc = 0, ql = -2;//currentChar e length
-    static StringBuilder qn = new StringBuilder(128);//linhas na media com 128 caracteres
+    static int qc = 0, ql = -2, qa = 0;//currentChar, length, aux
+    static StringBuilder qn = new StringBuilder(128);//cuidado, qn nao pode ser maior que o buffer
     static java.io.BufferedInputStream input = new java.io.BufferedInputStream(System.in);
 }

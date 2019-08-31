@@ -1,5 +1,5 @@
 /**
- * BufferedInputStream, le tudo de uma vez e grava em byte[].
+ * BufferedInputStream, le tudo de uma vez (de 2M em 2M bytes) e grava em byte[].
  */
 package iotest.in1;
 
@@ -26,8 +26,7 @@ public class R2b {
     static boolean ready() throws java.io.IOException {
         if (ql <= 0) {
             while ((qa = input.read(qn)) != -1) {
-                if (qa + ql > qb.length)
-                    qb = java.util.Arrays.copyOf(qb, qb.length * 2);//dobra o tamanho de qb
+                if (qa + ql > qb.length) qb = java.util.Arrays.copyOf(qb, qb.length * 2);//dobra o tamanho de qb
                 System.arraycopy(qn, 0, qb, ql, qa);//anexa temp em qb
                 ql += qa;
             }
