@@ -1,7 +1,7 @@
 /**
  * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(524288)
  */
-package iotest.out5;
+package iotest.out3;
 
 public class W6 {
 

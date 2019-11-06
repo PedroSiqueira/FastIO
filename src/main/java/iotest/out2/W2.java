@@ -1,7 +1,7 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(32768)
+ * BufferedOutputStream.write(sb(65536).toString().getBytes())
  */
-package iotest.out5;
+package iotest.out2;
 
 public class W2 {
 
@@ -19,7 +19,6 @@ public class W2 {
                 j += 10;
             }
             sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
-            FlushSb();
         }
         flush_close();
     }
@@ -29,10 +28,11 @@ public class W2 {
             if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
             else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
+        int sbinitial = sb.capacity();
         long startTime = System.nanoTime();
         PrintLines();
         long stopTime = System.nanoTime();
-        System.err.println((stopTime - startTime));
+        System.err.println((stopTime - startTime) + "\tsbCapacity_" + sbinitial + "_" + sb.capacity());
     }
 
     private static String randomString(int length) {
@@ -44,18 +44,11 @@ public class W2 {
     }
 
     static void flush_close() throws java.io.IOException {
-        out.write(sb.toString().getBytes());
-        out.flush();
-        out.close();
-    }
-
-    private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 4 * 32768 / 5) {
+        try (java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out)) {
             out.write(sb.toString().getBytes());
-            sb = new StringBuilder(32768);
+            out.flush();
         }
     }
 
-    static StringBuilder sb = new StringBuilder(32768);
-    static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
+    static StringBuilder sb = new StringBuilder(65536);
 }

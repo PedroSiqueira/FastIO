@@ -1,9 +1,9 @@
 /**
- * BufferedOutputStream.write(sb(1048576).toString().getBytes())
+ * BufferedOutputStream.write(sb(262144).toString().getBytes())
  */
-package iotest.out4;
+package iotest.out2;
 
-public class W6 {
+public class W4 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -50,5 +50,5 @@ public class W6 {
         }
     }
 
-    static StringBuilder sb = new StringBuilder(1048576);
+    static StringBuilder sb = new StringBuilder(262144);
 }

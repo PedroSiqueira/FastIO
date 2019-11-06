@@ -1,9 +1,9 @@
 /**
- * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(1048576)
+ * BufferedOutputStream.write(sb.toString().getBytes()) + flush_sb(262144)
  */
-package iotest.out5;
+package iotest.out3;
 
-public class W7 {
+public class W5 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -50,12 +50,12 @@ public class W7 {
     }
 
     private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 4 * 1048576 / 5) {
+        if (sb.length() >= 4 * 262144 / 5) {
             out.write(sb.toString().getBytes());
-            sb = new StringBuilder(1048576);
+            sb = new StringBuilder(262144);
         }
     }
 
-    static StringBuilder sb = new StringBuilder(1048576);
+    static StringBuilder sb = new StringBuilder(262144);
     static java.io.BufferedOutputStream out = new java.io.BufferedOutputStream(System.out);
 }
