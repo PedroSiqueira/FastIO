@@ -1,28 +1,27 @@
 /**
- * BufferedWriter.write(sb.toString());
+ * System.out.print(String);
  */
 package iotest.out1;
 
-public class W6 {
+public class W1a {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
     static int numColumns = 100;
 
-    private static void PrintLines() throws java.io.IOException {
+    private static void PrintLines() {
         for (int i = 0; i < numLines; i++) {
             for (int j = 0; j < numColumns / 10; j++) {
                 String s = randomString(5);
                 int n = (_random.nextInt(10000) + 10000);
-                sb.append(s).append(n);
+                System.out.print(s);
+                System.out.print(n);
             }
-            sb.append(System.getProperty("line.separator"));
-            FlushSb();
+            System.out.println();
         }
-        flush_close();
     }
 
-    public static void main(String args[]) throws java.io.IOException {
+    public static void main(String args[]) {
         if (args.length > 0) {
             numLines = Integer.parseInt(args[0]);
             numColumns = Integer.parseInt(args[1]);
@@ -40,20 +39,4 @@ public class W6 {
         }
         return strbld.toString();
     }
-
-    static void flush_close() throws java.io.IOException {
-        out.write(sb.toString());
-        out.flush();
-        out.close();
-    }
-
-    private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 20000) {
-            out.write(sb.toString());
-            sb = new StringBuilder(25000);
-        }
-    }
-
-    static StringBuilder sb = new StringBuilder(25000);
-    static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
 }

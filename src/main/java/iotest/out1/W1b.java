@@ -1,9 +1,9 @@
 /**
- * System.out.print(sb(2097152).toString())
+ * System.out.print(sb.toString());
  */
-package iotest.out5;
+package iotest.out1;
 
-public class W02 {
+public class W1b {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -19,6 +19,7 @@ public class W02 {
                 j += 10;
             }
             sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
+            FlushSb();
         }
         System.out.print(sb.toString());
     }
@@ -42,5 +43,12 @@ public class W02 {
         return strbld.toString();
     }
 
-    static StringBuilder sb = new StringBuilder(2097152);
+    private static void FlushSb() {
+        if (sb.length() >= 20000) {
+            System.out.print(sb.toString());
+            sb = new StringBuilder(25000);
+        }
+    }
+
+    static StringBuilder sb = new StringBuilder(25000);
 }

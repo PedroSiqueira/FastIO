@@ -1,9 +1,9 @@
 /**
- * System.out.print(String);
+ * System.out.print(sb(2097152).toString())
  */
-package iotest.out1;
+package iotest.out5;
 
-public class W1 {
+public class W1c {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -11,20 +11,22 @@ public class W1 {
 
     private static void PrintLines() {
         for (int i = 0; i < numLines; i++) {
-            for (int j = 0; j < numColumns / 10; j++) {
+            int j = 0;//quantas colunas ja foram geradas para a linha atual
+            while (j + 10 < numColumns) {//gera 10 colunas (uma string e um int de 5 digitos cada)
                 String s = randomString(5);
                 int n = (_random.nextInt(10000) + 10000);
-                System.out.print(s);
-                System.out.print(n);
+                sb.append(s).append(n);
+                j += 10;
             }
-            System.out.println();
+            sb.append(randomString(numColumns - j)).append('\n');//gera o restante de colunas que faltou e coloca um \n
         }
+        System.out.print(sb.toString());
     }
 
     public static void main(String args[]) {
-        if (args.length > 0) {
-            numLines = Integer.parseInt(args[0]);
-            numColumns = Integer.parseInt(args[1]);
+        for (int i = 0; i < args.length; i++) {
+            if ("-l".equals(args[i])) numLines = Integer.parseInt(args[i + 1]);
+            else if ("-c".equals(args[i])) numColumns = Integer.parseInt(args[i + 1]);
         }
         long startTime = System.nanoTime();
         PrintLines();
@@ -39,4 +41,6 @@ public class W1 {
         }
         return strbld.toString();
     }
+
+    static StringBuilder sb = new StringBuilder(2097152);
 }

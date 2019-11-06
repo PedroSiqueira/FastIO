@@ -1,9 +1,9 @@
 /**
- * BufferedWriter.write(String);
+ * BufferedWriter(32768).write(String);
  */
 package iotest.out1;
 
-public class W2 {
+public class W2b {
 
     static final java.util.Random _random = new java.util.Random(211166910);
     static int numLines = 1000000;
@@ -45,5 +45,5 @@ public class W2 {
         out.close();
     }
 
-    static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
+    static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out), 32768);
 }
