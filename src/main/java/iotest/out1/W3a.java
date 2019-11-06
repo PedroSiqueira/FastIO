@@ -1,5 +1,5 @@
 /**
- * BufferedWriter.write(sb.toString());
+ * BufferedWriter.write(sb.toString())
  */
 package iotest.out1;
 
@@ -50,12 +50,12 @@ public class W3a {
     }
 
     private static void FlushSb() throws java.io.IOException {
-        if (sb.length() >= 20000) {
+        if (sb.length() >= 4 * 2097152 / 5) {
             out.write(sb.toString());
-            sb = new StringBuilder(25000);
+            sb = new StringBuilder(2097152);
         }
     }
 
-    static StringBuilder sb = new StringBuilder(25000);
+    static StringBuilder sb = new StringBuilder(2097152);
     static java.io.BufferedWriter out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(System.out));
 }
