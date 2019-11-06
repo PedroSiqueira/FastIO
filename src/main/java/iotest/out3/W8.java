@@ -6,8 +6,8 @@ package iotest.out3;
 public class W8 {
 
     static final java.util.Random _random = new java.util.Random(211166910);
-    static int numLines = 1000000;
-    static int numColumns = 100;
+    static int numLines = 10000;
+    static int numColumns = 999;
 
     private static void PrintLines() throws java.io.IOException {
         for (int i = 0; i < numLines; i++) {
