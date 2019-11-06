@@ -1,7 +1,7 @@
 /**
  * BufferedWriter(sb(2097152).length()).write(sb.toString())
  */
-package iotest.out5;
+package iotest.out1;
 
 public class W3b {
 

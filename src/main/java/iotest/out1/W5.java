@@ -56,6 +56,6 @@ public class W5 {
         }
     }
 
-    static StringBuilder sb = new StringBuilder(25000);
+    static StringBuilder sb = new StringBuilder(2097152);
     static java.io.PrintWriter out = new java.io.PrintWriter(new java.io.BufferedOutputStream(System.out));
 }

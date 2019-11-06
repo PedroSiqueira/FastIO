@@ -1,5 +1,5 @@
 /**
- * BufferedWriter.write(sb.toString())
+ * BufferedWriter.write(sb(2097152).toString())
  */
 package iotest.out1;
 

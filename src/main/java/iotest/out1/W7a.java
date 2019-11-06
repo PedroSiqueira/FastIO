@@ -1,7 +1,7 @@
 /**
  * BufferedOutputStream.write(sb.append(Object).append(Object).toString().getBytes());
  */
-package iotest.out3;
+package iotest.out1;
 
 public class W7a {
 
