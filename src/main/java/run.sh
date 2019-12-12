@@ -12,7 +12,7 @@ if [ $# = 0 ]; then
   exit
 fi
 
-#procura se possui os argumentos -i, -o, -a e -f (os que tem dois-pontos necessitam de um valor como parametro)
+#procura os argumentos (os que tem dois-pontos necessitam de um valor como parametro)
 while getopts i:oa:f:er: option
 do
 case "${option}"
@@ -26,13 +26,16 @@ case "${option}"
 esac
 done
 
-echo 'folder: '$folder
 echo 'input file: '$inputfile
 echo 'output file:'$outputfile
 echo 'args: '$args
+echo 'folder: '$folder
 echo 'only echo: '$onlyecho
+echo 'repetition: '$repeticao
 echo
+
 date
+
 for file in $folder*.class; do
   #pega a substring a partir da ultima barra
   name="${file/*\//}"
